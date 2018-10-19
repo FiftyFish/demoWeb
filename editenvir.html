@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>环境修改</title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" href="css/unicorn.main.css" />
+		<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />	
+		<script src="js/angular.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+	<body ng-app="myApp" ng-controller="formCtrl">
+		
+		
+		<div id="header">
+			<h1><a href="./index.html">首页</a></h1>		
+		</div>
+		
+		<div id="search">
+			<input type="text" placeholder="Search here..." /><button type="submit" class="tip-right" title="Search"><i class="icon-search icon-white"></i></button>
+		</div>
+		<div id="user-nav" class="navbar navbar-inverse">
+            <ul class="nav btn-group">
+                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
+                <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="sAdd" title="" href="#">new message</a></li>
+                        <li><a class="sInbox" title="" href="#">inbox</a></li>
+                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
+                        <li><a class="sTrash" title="" href="#">trash</a></li>
+                    </ul>
+                </li>
+                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+                <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+            </ul>
+        </div>
+            
+		<div id="sidebar">
+			<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>用户</a>
+			<ul>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-file"></i> <span>发版管理</span> <span class="label">4</span></a>
+					<ul>
+						<li ng-show="isAdmin=='0'"><a href="envir.html">Envir</a></li>
+						<li ng-show="isAdmin=='0'"><a href="schedule.html">schedule</a></li>
+						<li ><a href="uploadRcrd.html">UploadRcrd</a></li>
+						<li ng-show="isAdmin=='0'"><a href="user.html">user</a></li>
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+		
+		<div id="style-switcher">
+			<i class="icon-arrow-left icon-white"></i>
+			<span>Style:</span>
+			<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
+			<a href="#blue" style="background-color: #2D2F57;"></a>
+			<a href="#red" style="background-color: #673232;"></a>
+		</div>
+		
+		<div id="content">
+			<div id="content-header">
+				<h1>环境修改</h1>
+				<div class="btn-group">
+					<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+					<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+					<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+					<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+				</div>
+			</div>
+			<div id="breadcrumb">
+				<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+				<a href="envir.html">环境管理</a>
+				<a href="editenvir.html" class="current">环境修改</a>
+			</div>
+							<div class="row-fluid">
+					<div class="span12">
+						<div class="widget-box">
+							<div class="widget-content nopadding">
+								<form action="#" method="get" class="form-horizontal" />
+									<div class="control-group">
+										<table  class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>环境编号</th>
+												<th>环境IP</th>
+												<th>登陆环境用户名</th>
+												<th>登陆环境密码</th>
+												<th>环境名</th>
+												<th>系统名</th>
+												<th>是否管理员</th>
+											</tr>
+										</thead>
+										<tbody  >
+											<tr>
+											<th><input type="text" style="width:100px" ng-model="envir.id"/></th>
+											<th><input type="text" style="width:100px" ng-model="envir.ip"/></th>
+											<th><input type="text" style="width:100px" ng-model="envir.loginName"/></th>
+											<th><input type="text" style="width:100px" ng-model="envir.loginPassword"/></th>
+											<th><input type="text" style="width:100px" ng-model="envir.envirName"/></th>
+											<th><input type="text" style="width:100px" ng-model="envir.systemName"/></th>
+											<th><input type="text" style="width:20px" ng-model="envir.isAdmin"/></th>
+											</tr>
+										</tbody>
+										<span class="pull-left"><input id="bn" type="button" class="btn btn-inverse" value="提交" ng-click="editEnvir()" /></span>
+			
+									</table>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						2012 &copy; Unicorn Admin. Brought to you by <a href="https://wrapbootstrap.com/user/diablo9983">diablo9983</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+            
+            <script src="js/jquery.min.js"></script>
+            <script src="js/jquery.ui.custom.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/jquery.validate.js"></script>
+            <script src="js/jquery.wizard.js"></script>
+            <script src="js/unicorn.js"></script>
+            <script src="js/unicorn.wizard.js"></script>
+            <script>
+		  var app = angular.module('myApp', []);
+			app.controller('formCtrl', function($scope, $http) {
+				var usrInfo =JSON.parse( localStorage.getItem("usr"));
+			$scope.isAdmin=usrInfo.isAdmin;
+			console.log(usrInfo.isAdmin)
+			if(usrInfo){
+				if (usrInfo.isAdmin=='1'  ) {
+			   		console.log("caonima")
+			   		window.location.href="index.html";
+			   } 
+			}else{
+				console.log("caonima")
+			   	window.location.href="index.html";
+			}
+			
+				var envirInfo = localStorage.getItem("envirInfo");
+				$scope.envir = JSON.parse(envirInfo);
+				console.log(envirInfo)
+				
+				$scope.editEnvir = function() {
+					console.log("1111",JSON.stringify($scope.envir))
+					
+					$scope.url = "http://localhost:8088/demo/Envir/modifyEnvir";
+					$http({
+						method: "POST",
+						url: $scope.url,
+						data: $scope.envir
+					}).then(function(data) {
+							alert("success");
+							window.location.href = "envir.html";
+					},function(resp){
+						
+					});
+				};
+
+			});
+
+</script>	
+	</body>
+</html>

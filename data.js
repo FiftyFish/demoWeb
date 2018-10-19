@@ -1,0 +1,29 @@
+{
+	"totalCount":2,
+	"usrList":[
+		{
+			"id":"123456",
+			"ip":"BG_124",
+			"loginName":"zhangsan",
+			"loginPassword":"111111",
+			"envirName":"98.196",
+			"systemName":"12",
+			
+		},{
+			"id":"123456",
+			"ip":"BG_124",
+			"loginName":"zhangsan",
+			"loginPassword":"111111",
+			"envirName":"98.196",
+			"systemName":"12",
+		}
+		,{
+			"id":"123456",
+			"ip":"BG_124",
+			"loginName":"zhangsan",
+			"loginPassword":"111111",
+			"envirName":"98.196",
+			"systemName":"12",
+		}
+	]
+}

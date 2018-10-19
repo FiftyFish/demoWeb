@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>envir</title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" href="css/uniform.css" />
+		<link rel="stylesheet" href="css/select2.css" />		
+		<link rel="stylesheet" href="css/fullcalendar.css" />
+		<link rel="stylesheet" href="css/unicorn.main.css" />
+		<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />	
+		<script src="js/angular.min.js"></script>
+		
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+	
+	<body  ng-app="myApp" ng-controller="userCtrl">
+		
+		
+		<div id="header">
+			<h1><a href="./dashboard.html">Unicorn Admin</a></h1>		
+		</div>
+		
+		<div id="search">
+			<input type="text" placeholder="Search here..." /><button type="submit" class="tip-right" title="Search"><i class="icon-search icon-white"></i></button>
+		</div>
+		<div id="user-nav" class="navbar navbar-inverse">
+            <ul class="nav btn-group">
+                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
+                <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="sAdd" title="" href="#">new message</a></li>
+                        <li><a class="sInbox" title="" href="#">inbox</a></li>
+                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
+                        <li><a class="sTrash" title="" href="#">trash</a></li>
+                    </ul>
+                </li>
+                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+                <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+            </ul>
+        </div>
+            
+		<div id="sidebar">
+			<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>用户</a>
+			<ul>
+				<li class="submenu">
+					<a href="#"><i class="icon icon-file"></i> <span>发版管理</span> <span class="label">4</span></a>
+					<ul>
+						<li ng-show="isAdmin=='0'"><a href="envir.html">Envir</a></li>
+						<li ng-show="isAdmin=='0'"><a href="schedule.html">schedule</a></li>
+						<li ><a href="uploadRcrd.html">UploadRcrd</a></li>
+						<li ng-show="isAdmin=='0'"><a href="user.html">user</a></li>
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+		
+		<div id="style-switcher">
+			<i class="icon-arrow-left icon-white"></i>
+			<span>Style:</span>
+			<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
+			<a href="#blue" style="background-color: #2D2F57;"></a>
+			<a href="#red" style="background-color: #673232;"></a>
+		</div>
+		
+		<div id="content" >
+			<div id="content-header">
+				<h1>环境管理</h1>
+				<div class="btn-group">
+					<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+					<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+					<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+					<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+				</div>
+			</div>
+			<div id="breadcrumb">
+				<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+				<a href="envir.html" class="current">环境</a>
+			</div>
+			
+			
+			<!--页面数据展示-表格布局部分-->
+			<div class="container-fluid">
+				<input style="position: relative;bottom: -10px;" id="ip" type="text" placeholder="IP" ng-model="ip" />
+				<button style="position: relative;bottom: -8px;"     class="btn btn-success" ng-click="qrytable($ip)">
+					<span class="glyphicon glyphicon-user"></span>查询
+				</button>
+				<button style="position: relative;bottom: -8px;"     class="btn btn-success" ng-click="addtable('add')">
+					<span class="glyphicon glyphicon-user"></span>新增
+				</button>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="widget-box">
+							
+							<div class="widget-title">
+								<span class="icon">
+									<i class="icon-th"></i>
+								</span>
+								<h5>环境列表</h5>
+							</div>
+							<div class="widget-content nopadding">
+								<table  class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>环境编号</th>
+											<th>环境IP</th>
+											<th>登陆环境用户名</th>
+											<th>登陆环境密码</th>
+											<th>环境名</th>
+											<th>系统名</th>
+											<th>是否管理员</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody  >
+										<tr ng-repeat="envir in envirList">
+										<th>{{envir.id}}</th>
+										<th>{{envir.ip}}</th>
+										<th>{{envir.loginName}}</th>
+										<th>{{envir.loginPassword}}</th>
+										<th>{{envir.envirName}}</th>
+										<th>{{envir.systemName}}</th>
+										<th>
+													<span ng-show="envir.isAdmin=='0'">是</span>
+													<span ng-show="envir.isAdmin=='1'">否</span>
+										
+										</th>
+										<th>
+											<button class="btn" ng-click="delete($index)">
+								          		<span class="glyphicon glyphicon-pencil"></span>删除
+								        	</button>
+								        	<button class="btn" ng-click="change($index)">
+								          		<span class="glyphicon glyphicon-pencil"></span>修改
+								        	</button>
+								        </th>
+										</tr>
+									</tbody>
+								</table>	
+
+							</div>
+						</div>	
+					</div>
+				</div>
+				
+				<!--<div class="row-fluid">
+					<div id="footer" class="span12">
+						2018 &copy; Unicorn Admin. Brought to you by <a href="https://wrapbootstrap.com/user/diablo9983">fanjia</a>
+					</div>
+				</div>-->
+			</div>
+		</div>
+		
+		
+            
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.ui.custom.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.uniform.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/unicorn.js"></script>
+<script src="js/unicorn.tables.js"></script>
+<script src="layer/layer.js"></script>
+<script>
+            
+angular.module('myApp', []).controller('userCtrl', function($scope,$http,$q) {
+	var usrInfo =JSON.parse( localStorage.getItem("usr"));
+	$scope.isAdmin=usrInfo.isAdmin;
+	console.log(usrInfo.isAdmin)
+	if(usrInfo){
+		if (usrInfo.isAdmin=='1'  ) {
+	   		window.location.href="index.html";
+	   } 
+	}else{
+	   	window.location.href="index.html";
+	}
+   
+	
+	//删除按钮绑定事件
+	$scope.delete = function(index) {
+		var id=$scope.envirList[index].id;
+		console.log("1111",id)
+		$scope.url = "http://localhost:8088/demo/Envir/removeEnvir";
+	    $http({method:"POST",url:$scope.url,data:id}).success(function (data) {
+	        getDatelist();
+	    });
+	    alert("删除");
+		
+		console.log(this);
+	};
+	//修改按钮绑定事件
+	$scope.change = function(index) {
+		
+		console.log(JSON.stringify($scope.envirList[index]))
+		localStorage.setItem("envirInfo",JSON.stringify($scope.envirList[index]))
+		window.location.href="editenvir.html";
+		
+	};
+	
+	//新增按钮点击事件
+	$scope.addtable = function() {
+	  	//弹出一个iframe层
+	   window.location.href="addEnvir.html";
+	};
+
+	
+	
+	//查询按钮点击事件-h
+	$scope.qrytable = function() {
+		var  isAdmin="1";
+		var ip =$scope.ip;
+		console.log("1111111111",JSON.stringify(ip))
+		console.log("1111111111",JSON.stringify(isAdmin))
+		var a = {isAdmin:isAdmin,ip:ip}
+		console.log("1111111111",JSON.stringify(a))
+		var datas = JSON.stringify(a)
+		$scope.url = "http://localhost:8088/demo/Envir/getEnvirByIP";
+		$http({method: "POST",url: $scope.url,data:datas}).success(function(data) {
+			$scope.envirList = data.envirList;
+			console.log(data.envirList);
+		});
+	};
+
+	//调接口获取数据方法
+	function getDatelist(){
+		var data = {
+			"totalCount":2,
+			"envirList":[
+				{
+					"id":"",
+					"ip":"",
+					"loginName":"",
+					"loginPassword":"",
+					"envirName":"",
+					"systemName":"",
+					"isAdmin":"",
+				}
+			]
+		}
+		var usrInfo =JSON.parse( localStorage.getItem("usr"));
+		var isAdmin =JSON.stringify(usrInfo.isAdmin);
+		$scope.url = "http://localhost:8088/demo/Envir/listEnvir";
+		alert("展示");
+		console.log("是否管理员",isAdmin)
+	    $http({method:"POST",url:$scope.url,data:isAdmin }).success(function (data) {
+	        $scope.envirList = data.envirList;
+	    });
+	}
+	getDatelist();
+})
+
+</script>
+	</body>
+</html>

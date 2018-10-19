@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/bootstrap-responsive.min.css" />
+		<script src="js/angular.min.js"></script>
+	</head>
+	
+	<body ng-app="myApp" ng-controller="formCtrl">
+		
+			<table  class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>用户ID</th>
+						<th>用户编号</th>
+						<th>用户名</th>
+						<th>负责人</th>
+						<th>密码</th>
+						<th>所属公司</th>
+						<th>是否管理员</th>
+						<th>行方负责人</th>
+					</tr>
+				</thead>
+				<tbody  >
+					<tr>
+					<th><input type="text" style="width:100px" ng-model="usr.id"/></th>
+					<th><input type="text" style="width:100px"  ng-model="usr.userId"/></th>
+					<th><input type="text" style="width:100px"  ng-model="usr.usrName"/></th>
+					<th><input type="text" style="width:100px"  ng-model="usr.attribute"/></th>
+					<th><input type="text" style="width:100px" ng-model="usr.usrPassword"/></th>
+					<th><input type="text" style="width:100px" ng-model ="usr.affiliatedCompany"/></th>
+					<th><input type="text" style="width:20px" ng-mode ="usr.isAdmin"/></th>
+					<th><input type="text" style="width:100px" ng-model="usr.bankLeader"/></th>
+					</tr>
+				</tbody>
+				
+			</table>
+			<span class="pull-right"><input id="bn" type="button" class="btn btn-inverse" value="提交" ng-click="adduser()" /></span>
+			
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.ui.custom.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.uniform.js"></script>
+		<script src="js/select2.min.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
+		<script src="js/unicorn.js"></script>
+		<script src="js/unicorn.tables.js"></script>
+		<script src="layer/layer.js"></script>
+		<script>
+		  var app = angular.module('myApp', []);
+			app.controller('formCtrl', function($scope, $http) {
+				$scope.usr = {
+					"id":"",
+					"userId":"",
+					"userName":"",
+					"attribute":"",
+					
+					"userPassword":"",
+					
+					"affiliatedCompare":"",
+					"isAdmin":"",
+					"bankLeader":"",
+				}
+				$scope.adduser = function() {
+					console.log("1111",JSON.stringify($scope.usr))
+					
+					$scope.url = "http://localhost:8088/demo/user/addusr";
+					$http({
+						method: "POST",
+						url: $scope.url,
+						data: $scope.usr
+					}).then(function(data) {
+							alert("success");
+//							<!--window.location.href = "index.html";-->
+					},function(resp){
+						
+					});
+				};
+
+			});
+
+
+</script>	
+	</body>
+</html>
+
+
+
+
+
+
+
+
+

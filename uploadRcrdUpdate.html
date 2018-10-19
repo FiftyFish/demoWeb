@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>addSchedule</title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" href="css/uniform.css" />	
+		<link rel="stylesheet" href="css/fullcalendar.css" />
+		<link rel="stylesheet" href="css/unicorn.main.css" />
+		<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />	
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	</head>
+	
+	<body ng-app="myApp" ng-controller="rcrdCtrl">
+		<div id="header">
+			<h1><a href="./dashboard.html">Unicorn Admin</a></h1>		
+		</div>
+		
+		<div id="search">
+			<input type="text" placeholder="Search here..." /><button type="submit" class="tip-right" title="Search"><i class="icon-search icon-white"></i></button>
+		</div>
+		<div id="user-nav" class="navbar navbar-inverse">
+            <ul class="nav btn-group">
+                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text">Profile</span></a></li>
+                <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="sAdd" title="" href="#">new message</a></li>
+                        <li><a class="sInbox" title="" href="#">inbox</a></li>
+                        <li><a class="sOutbox" title="" href="#">outbox</a></li>
+                        <li><a class="sTrash" title="" href="#">trash</a></li>
+                    </ul>
+                </li>
+                <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+                <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+            </ul>
+        </div>
+            
+		<div id="sidebar">
+			<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>用户</a>
+			<ul>
+				
+				<li class="submenu">
+					<a href="#"><i class="icon icon-file"></i> <span>发版管理</span> <span class="label">3</span></a>
+					<ul>
+						<li ng-show="isAdmin=='0'"><a href="envir.html">Envir</a></li>
+						<li ng-show="isAdmin=='0'"><a href="schedule.html">schedule</a></li>
+						<li ><a href="uploadRcrd.html">UploadRcrd</a></li>
+						<li ng-show="isAdmin=='0'"><a href="user.html">user</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		
+		<div id="style-switcher">
+			<i class="icon-arrow-left icon-white"></i>
+			<span>Style:</span>
+			<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
+			<a href="#blue" style="background-color: #2D2F57;"></a>
+			<a href="#red" style="background-color: #673232;"></a>
+		</div>
+		<div id="content" >
+			<div id="content-header">
+				<h1>上线管理</h1>
+				<div class="btn-group">
+					<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+					<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+					<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+					<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+				</div>
+			</div>
+			<div id="breadcrumb">
+				<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+				<a href="uploadRcrd.html" class="current">发版管理</a>
+				<a href="#" class="current">修改申请发版内容</a>
+			</div>
+			
+
+		
+		
+			<div class="container-fluid">
+			<table  class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<button class="btn btn-inverse btn-mini" id="isTrue" ng-click="modifyUploadRcrd($rcrd)">提交</button>
+					</tr>
+					<tr>
+						<th style="width: auto; height: auto;">排期编号</th>
+						<th>变更内容所属系统</th>
+						<th>变更内容所属环境</th>
+						<th>变更类型</th>
+						<th>变更内容</th>
+					</tr>
+					<tr>
+						<th style="width: 120px; height: auto;">
+							<select ng-init="schedule = scheduleList[0]" ng-model="schedule" ng-options="x.scheduleId for x in scheduleList">
+								</select>
+						</th>
+						<th><input type="text" style="width:auto" ng-model="rcrd.belongSys"/></th>
+						<th><input type="text" style="width:40px" ng-model="rcrd.belongEnvir"/></th>
+						<th>
+							<select ng-init="rcrd.changeType" ng-model="rcrd.changeType" ng-options="x for x in changeTypes">
+							</select></th>
+						<th><input type="text" style="width:400px" ng-model="rcrd.changeContent"/></th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th style="width: auto; height: auto;">行方领导</th>
+						<th>测试人员</th>
+						<th>是否本地测试</th>
+						<th>默认项</th>
+						<th>测试案例</th>
+						
+					</tr>
+					<tr>
+						<th style="width: 120px; height: auto;">
+								<select ng-init="rcrd.bankLeader" ng-model="rcrd.bankLeader" ng-options="x for x in bankLeaders">
+								</select>
+							</th>
+						<th><input type="text" style="width:auto" ng-model="rcrd.testerName"/></th>
+						<th>
+							<select ng-init="rcrd.isLocalTest=types[0]" ng-model="rcrd.isLocalTest" ng-options="x for x in types">
+								</select>
+							</th>
+						<th>
+							<select ng-init="rcrd.isTest =types[1]" ng-model="rcrd.isTest" ng-options="x for x in types">
+								</select>
+						</th>
+						<th><input type="text" style="width:400px" ng-model="rcrd.testCase"/></th>
+					</tr>
+				</tbody>
+				
+			</table>
+			</div>
+		</div>
+			
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.ui.custom.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.uniform.js"></script>
+		
+		<script src="js/jquery.dataTables.min.js"></script>
+		<script src="js/unicorn.js"></script>
+		
+		<script src="layer/layer.js"></script>
+		<script src="js/angular.min.js"></script>
+
+		<script>
+		            
+		angular.module('myApp', []).controller('rcrdCtrl', function($scope,$http) {
+			$scope.bankLeaders = ["刘培", "闫磊", "马天宇","刘彦君"];
+			$scope.attributes = ["李晓峰", "王红进", "申高平","李安东"];
+			
+			$scope.changeTypes = ["新增", "删除", "修改"];
+			$scope.types = ["0", "1"];
+			$scope.schedule={}
+			//提交按钮绑定事件
+			var usrInfo =JSON.parse( localStorage.getItem("usr"));
+			
+			var usrName = JSON.stringify(usrInfo.usrName);
+			//获取排期列表信息
+			//进入页面加载数据
+			$scope.url = "http://localhost:8088/demo/schedule/listSchedules";
+		    $http({method:"POST",url:$scope.url}).success(function (data) {
+		    	$scope.scheduleList = data.scheduleList;
+		    });
+			$scope.rcrd = JSON.parse(localStorage.getItem("temp"));
+			console.log("1111111",$scope.rcrd)
+			//提交按钮绑定事件
+			$scope.modifyUploadRcrd = function() {
+				//获得schedule的值
+				$scope.rcrd.scheduleId=$scope.schedule.scheduleId;
+				$scope.rcrd.inptOpr=usrInfo.usrName;
+				$scope.url = "http://localhost:8088/demo/uploadRcrd/modifyUploadRcrd";
+//				JSON.stringify({usrName:usrName,rcrd:$scope.rcrd})
+			    $http({method:"POST",url:$scope.url,data:$scope.rcrd}).then(function (data) {
+			    	console.log("1111111",$scope.rcrd)
+				    alert("success！");
+			    	window.location.href = "uploadRcrd.html";},
+			    );	
+			};
+			
+			
+		})
+
+		</script>	
+	</body>
+</html>

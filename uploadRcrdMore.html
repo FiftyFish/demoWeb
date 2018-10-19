@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+	</head>
+	
+	
+	<body ng-app="myApp" ng-controller="rcrdCtrl">
+		
+			<table  class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>变更内容</th>
+						<th>变更类型</th>
+						<th>行方领导</th>
+						<th>测试案例</th>
+						<th>测试人员</<th>
+						<th>编辑日期</th>
+						<th>排期编号</th>>
+						<th>是否发送邮件</th>
+						<th>是否本地测试</th>
+						<th>是否测试</th>
+						<th>邮件是否反馈</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr >
+						<th>{{rcrd.changeContent}}</th>
+						<th>{{rcrd.changeType}}</th>
+						<th>{{rcrd.bankLeader}}</th>
+						<th>{{rcrd.testCase}}</th>
+						<th>{{rcrd.testerName}}</th>
+						<th>{{rcrd.editDate}}</th>
+						<th>{{rcrd.scheduleId}}</th>
+						<th>{{rcrd.isSendLeader}}</th>
+						<th>{{rcrd.isLocalTest}}</th>
+						<th>{{rcrd.isTest}}</th>
+						<th>{{rcrd.isAccept}}</th>
+					</tr>
+				</tbody>
+			</table>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.ui.custom.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.uniform.js"></script>
+		<script src="js/select2.min.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
+		<script src="js/unicorn.js"></script>
+		<script src="js/unicorn.tables.js"></script>
+		<script src="layer/layer.js"></script>
+		<script src="js/angular.min.js"></script>
+
+		<script>
+		            
+		angular.module('myApp', []).controller('rcrdCtrl', function($scope,$http) {
+			$scope.rcrd = JSON.parse(localStorage.getItem("temp"));
+			console.log("uploadRcrd",$scope.rcrd)
+			
+		})
+
+		</script>	
+	</body>
+
+
+</html>
